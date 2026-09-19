@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WARP CALCULATOR</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- DARK MODE TOGGLE -->
+
+<div class="theme-control">
+
+  <span class="theme-label">theme</span>
+
+  <button
+    class="theme-toggle"
+    id="theme-toggle"
+    type="button"
+    aria-label="Toggle dark mode"
+    aria-pressed="false"
+  >
+    <span class="toggle-circle"></span>
+  </button>
+
+</div>
+
+    <!-- TITLE -->
+    <h1 class="title">WARP CALCULATOR</h1>
+
+    <section class="content">
+
+      <!-- DESCRIPTION -->
+      <h2 class="description">
+        calculate the warp requirements for your weaving project.
+      </h2>
+
+      <!-- INPUTS -->
+      <div class="input-group">
+
+        <div class="input-row">
+          <label for="width">
+            Width in reed <span class="unit">[inches]</span>
+          </label>
+
+          <input
+            id="width"
+            name="width"
+            type="number"
+            step="any"
+            inputmode="decimal"
+            min="0"
+          >
+        </div>
+
+        <div class="input-row">
+          <label for="sett">
+            Sett <span class="unit">[ends per inch]</span>
+          </label>
+
+          <input
+            id="sett"
+            name="sett"
+            type="number"
+            step="any"
+            inputmode="decimal"
+            min="0"
+          >
+        </div>
+
+        <div class="input-row">
+          <label for="warp-length">
+            Length of warp <span class="unit">[yards]</span>
+          </label>
+
+          <input
+            id="warp-length"
+            name="warp-length"
+            type="number"
+            step="any"
+            inputmode="decimal"
+            min="0"
+          >
+        </div>
+
+      </div>
+
+      <!-- CALCULATE -->
+      <button
+        type="button"
+        class="action-button"
+        id="calculate-button"
+      >
+        calculate
+      </button>
+
+      <!-- ERROR -->
+      <p
+        class="calculator-error"
+        id="calculator-error"
+        aria-live="polite"
+      ></p>
+
+      <!-- RESULTS -->
+      <div class="results" aria-live="polite">
+
+        <div class="result-row">
+          <span class="result-label">Total warp ends</span>
+          <span class="result-value" id="total-ends">---</span>
+        </div>
+
+        <div class="result-row">
+          <span class="result-label">Total warp yards</span>
+          <span class="result-value" id="total-yards">---</span>
+        </div>
+
+      </div>
+
+      <!-- CLEAR -->
+      <button
+        type="button"
+        class="action-button clear-button"
+        id="clear-button"
+      >
+        clear
+      </button>
+
+      <a
+        class="made-by"
+        href="https://katerinah.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        made by Katerina
+      </a>
+
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

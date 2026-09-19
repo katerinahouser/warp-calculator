@@ -1,0 +1,550 @@
+/* =========================================================
+   GLOBAL SETUP
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+
+/* =========================================================
+   DESIGN SYSTEM
+   Shared color, spacing, and alignment values.
+   ========================================================= */
+
+body {
+  --background: #f9fafb;
+
+  --text-dark: #404040;
+  --text: #525252;
+  --text-light: #787878;
+  --text-muted: #9a9a9a;
+
+  --input: #e5e7e9;
+
+  --orange: #ff7400;
+  --pink: #f73bb9;
+
+  --section-gap: 40px;
+  --input-gap: 24px;
+  --result-gap: 24px;
+
+  --label-width: 165px;
+  --value-width: 120px;
+
+  background: var(--background);
+  color: var(--text);
+
+  font-family: Helvetica, Arial, sans-serif;
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+
+/* =========================================================
+   DARK MODE COLORS
+   ========================================================= */
+
+body.dark-mode {
+  --background: #202020;
+
+  --text-dark: #f5f5f5;
+  --text: #eeeeee;
+  --text-light: #d0d0d0;
+  --text-muted: #b8b8b8;
+
+  --input: #383838;
+}
+
+
+/* =========================================================
+   PAGE CONTAINER
+   Fills the browser window and grows with content.
+   ========================================================= */
+
+.calculator {
+  position: relative;
+
+  width: 100%;
+  max-width: 1440px;
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  margin: 0 auto;
+
+  background: var(--background);
+
+  transition: background-color 0.3s ease;
+}
+
+
+/* =========================================================
+   MADE BY
+   Bottom-center credit.
+   ========================================================= */
+
+.made-by {
+  align-self: center;
+
+  margin-top: 50px;
+    margin-bottom: 25px;
+
+  color: var(--text-muted);
+
+  font-size: 0.7rem;
+  font-weight: 500;
+  line-height: 1.45;
+
+  text-decoration: none;
+
+  transition: color 0.3s ease;
+}
+
+.made-by:hover {
+  color: var(--pink);
+  font-weight: 700;
+}
+
+.made-by:active {
+  opacity: 0.7;
+}
+
+
+/* =========================================================
+   DARK MODE CONTROL
+   Top-left corner.
+   ========================================================= */
+
+.theme-control {
+  position: absolute;
+
+  top: 20px;
+  left: 24px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-label {
+  color: var(--text-muted);
+
+  font-family:
+    Menlo,
+    Monaco,
+    Consolas,
+    "Liberation Mono",
+    monospace;
+
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+
+/* Toggle track */
+
+.theme-toggle {
+  position: relative;
+
+  width: 36px;
+  height: 20px;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: 10px;
+
+  background: #e5e7e9;
+
+  cursor: pointer;
+}
+
+
+/* Toggle circle */
+
+.toggle-circle {
+  position: absolute;
+
+  top: 3px;
+  left: 3px;
+
+  width: 14px;
+  height: 14px;
+
+  border-radius: 50%;
+
+  background: var(--orange);
+
+  transition:
+    transform 0.25s ease,
+    background-color 0.25s ease;
+}
+
+
+/* Dark mode = move right and turn pink */
+
+.theme-toggle[aria-pressed="true"] .toggle-circle {
+  transform: translateX(16px);
+  background: var(--pink);
+}
+
+
+/* Keyboard focus */
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+.title {
+  position: absolute;
+
+  top: 50px;
+  left: 250px;
+
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: 3rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   All calculator content shares this left edge.
+   ========================================================= */
+
+.content {
+  position: absolute;
+
+  top: 105px;
+  left: 250px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
+.description {
+  width: max-content;
+  max-width: calc(100vw - 300px);
+
+  margin: 0;
+
+  color: var(--text);
+
+  font-family:
+    Menlo,
+    Monaco,
+    Consolas,
+    "Liberation Mono",
+    monospace;
+
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+
+/* =========================================================
+   INPUT SYSTEM
+   section-gap = space before inputs
+   input-gap   = equal space between input rows
+   ========================================================= */
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--input-gap);
+
+  margin-top: var(--section-gap);
+}
+
+.input-row {
+  height: 70px;
+}
+
+
+/* Input labels */
+
+.input-row label {
+  display: block;
+
+  color: var(--text-dark);
+
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.45;
+
+  white-space: nowrap;
+}
+
+
+/* Units beside labels */
+
+.unit {
+  margin-left: 4px;
+  font-weight: 500;
+}
+
+
+/* Number inputs */
+
+.input-row input {
+  display: block;
+
+  width: 120px;
+  height: 40px;
+
+  margin-top: 10px;
+  padding: 0 12px;
+
+  border: 0;
+  border-radius: 0;
+  outline: 0;
+
+  background: var(--input);
+  color: var(--text-dark);
+
+  font:
+    500 1rem/1.45
+    Helvetica,
+    Arial,
+    sans-serif;
+
+  appearance: textfield;
+  -moz-appearance: textfield;
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+
+/* Remove browser number arrows */
+
+.input-row input::-webkit-outer-spin-button,
+.input-row input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+/* Keyboard focus */
+
+.input-row input:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+
+
+/* =========================================================
+   BUTTON SYSTEM
+   Shared by Calculate and Clear.
+   ========================================================= */
+
+.action-button {
+  width: 102px;
+  height: 40px;
+
+  margin-top: var(--section-gap);
+  padding: 0;
+
+  border: 0;
+  border-radius: 0;
+
+  background: var(--text);
+  color: var(--background);
+
+  font-family:
+    Menlo,
+    Monaco,
+    Consolas,
+    "Liberation Mono",
+    monospace;
+
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.action-button:hover {
+  background: var(--pink);
+}
+
+.action-button:active {
+  opacity: 0.7;
+}
+
+
+/* Keyboard focus */
+
+.action-button:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+
+
+/* =========================================================
+   ERROR MESSAGE
+   ========================================================= */
+
+.calculator-error {
+  min-height: 20px;
+
+  margin:
+    10px 0
+    calc(var(--section-gap) - 10px);
+
+  color: var(--text-light);
+
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   RESULTS SYSTEM
+   result-gap  = equal space between results
+   label-width = keeps boxes aligned
+   value-width = width of result boxes
+   ========================================================= */
+
+.results {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--result-gap);
+}
+
+.result-row {
+  display: grid;
+
+  grid-template-columns:
+    var(--label-width)
+    var(--value-width);
+
+  align-items: center;
+  gap: 15px;
+}
+
+
+/* Result labels */
+
+.result-label {
+  color: var(--text-dark);
+
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+
+/* Result value boxes */
+
+.result-value {
+  width: var(--value-width);
+  min-height: 40px;
+
+  padding: 10px 12px;
+
+  background: var(--input);
+  color: var(--text);
+
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+
+/* =========================================================
+   CLEAR BUTTON
+   Uses the same button system as Calculate.
+   ========================================================= */
+
+.clear-button {
+  margin-top: var(--section-gap);
+}
+
+
+/* =========================================================
+   MOBILE
+   Screens 700px and below.
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .title,
+  .content {
+    left: 41px;
+  }
+
+  .title {
+    top: 35px;
+  }
+
+  .content {
+    top: 104px;
+    right: 41px;
+  }
+
+  .description {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   Screens 360px and below.
+   ========================================================= */
+
+@media (max-width: 360px) {
+
+  .title,
+  .content {
+    left: 24px;
+  }
+
+  .content {
+    right: 24px;
+  }
+
+  .result-row {
+    grid-template-columns: 165px 120px;
+  }
+}

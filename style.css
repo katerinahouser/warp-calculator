@@ -503,21 +503,24 @@ body.dark-mode {
 /* =========================================================
    MOBILE
    Screens 700px and below.
+   Adds more space below the dark mode control.
    ========================================================= */
 
 @media (max-width: 700px) {
 
   .title,
   .content {
-    left: 41px;
+    left: 20px;
   }
 
+  /* More breathing room at the top */
+
   .title {
-    top: 35px;
+    top: 60px;
   }
 
   .content {
-    top: 104px;
+    top: 180px;
     right: 41px;
   }
 
@@ -531,6 +534,7 @@ body.dark-mode {
 /* =========================================================
    VERY SMALL PHONES
    Screens 360px and below.
+   Keeps the same vertical system with smaller side margins.
    ========================================================= */
 
 @media (max-width: 360px) {

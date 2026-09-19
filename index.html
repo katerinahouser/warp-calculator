@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warp Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="calculator">
+
+    <a class="made-by" href="https://katerinah.com" target="_blank" rel="noopener noreferrer">
+      made by Katerina
+    </a>
+
+    <h1 class="title">Warp Calculator</h1>
+
+    <section class="content">
+
+      <h2 class="description">
+        Calculate the warp requirements for your weaving project.
+      </h2>
+
+      <div class="input-group">
+
+        <div class="input-row">
+          <label for="width">
+            Width in reed <span class="unit">[inches]</span>
+          </label>
+          <input
+            id="width"
+            name="width"
+            type="number"
+            step="any"
+            inputmode="decimal"
+            min="0"
+          >
+        </div>
+
+        <div class="input-row">
+          <label for="sett">
+            Sett <span class="unit">[ends per inch]</span>
+          </label>
+          <input
+            id="sett"
+            name="sett"
+            type="number"
+            step="any"
+            inputmode="decimal"
+            min="0"
+          >
+        </div>
+
+        <div class="input-row">
+          <label for="warp-length">
+            Length of warp <span class="unit">[yards]</span>
+          </label>
+          <input
+            id="warp-length"
+            name="warp-length"
+            type="number"
+            step="any"
+            inputmode="decimal"
+            min="0"
+          >
+        </div>
+
+      </div>
+
+      <button type="button" class="action-button" id="calculate-button">
+        Calculate
+      </button>
+
+      <p class="calculator-error" id="calculator-error" aria-live="polite"></p>
+
+      <div class="results" aria-live="polite">
+
+        <div class="result-row">
+          <span class="result-label">Total warp ends</span>
+          <span class="result-value" id="total-ends">---</span>
+        </div>
+
+        <div class="result-row">
+          <span class="result-label">Total warp yards</span>
+          <span class="result-value" id="total-yards">---</span>
+        </div>
+
+      </div>
+
+      <button type="button" class="action-button clear-button" id="clear-button">
+        Clear
+      </button>
+
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

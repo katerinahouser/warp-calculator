@@ -1,0 +1,515 @@
+
+/* =========================================================
+   GLOBAL SETUP
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+
+/* =========================================================
+   COLORS & TYPOGRAPHY
+   ========================================================= */
+
+body {
+  --background: #FAFAFA;
+  --panel: #F2EEEE;
+  --input: #DDD6D7;
+
+  --text-dark: #242424;
+  --text: #484848;
+  --text-light: #686868;
+
+  --pink: #F73BB9;
+  --button: #805B70;
+
+  --radius: 8px;
+
+  background: var(--background);
+  color: var(--text);
+
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.calculator {
+  width: min(1200px, calc(100% - 80px));
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.title {
+  margin: 0;
+  color: var(--text-dark);
+
+  font-family:
+    "Avenir Next",
+    Avenir,
+    "Segoe UI",
+    sans-serif;
+
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.description {
+  max-width: 650px;
+  margin: 16px 0 0;
+  color: var(--text);
+
+  font-family:
+    "Avenir Next",
+    Avenir,
+    "Segoe UI",
+    sans-serif;
+
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   MAIN LAYOUT
+   ========================================================= */
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 45px;
+  margin-top: 45px;
+}
+
+
+/* =========================================================
+   PANELS
+   ========================================================= */
+
+.calculator-panel,
+.sett-panel {
+  min-width: 0;
+  padding: 28px;
+  background: var(--panel);
+  border-radius: var(--radius);
+}
+
+.section-title {
+  margin: 0 0 28px;
+  color: var(--text-dark);
+
+  font-family:
+    "Avenir Next",
+    Avenir,
+    "Segoe UI",
+    sans-serif;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+
+/* =========================================================
+   INPUTS — SHARED BY BOTH CALCULATORS
+   ========================================================= */
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: 190px 120px;
+  align-items: center;
+  gap: 14px;
+}
+
+.input-row label {
+  color: var(--text-dark);
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.unit {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.input-row input {
+  width: 120px;
+  height: 38px;
+  padding: 0 11px;
+
+  border: 0;
+  border-radius: var(--radius);
+  outline: none;
+
+  background: var(--input);
+  color: var(--text-dark);
+
+  font:
+    500 0.9rem/1.4
+    Helvetica,
+    Arial,
+    sans-serif;
+
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.input-row input:focus,
+.input-row input:focus-visible {
+  background: var(--input);
+  outline: none;
+  box-shadow: none;
+}
+
+.input-row input::-webkit-outer-spin-button,
+.input-row input::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+
+/* =========================================================
+   BUTTONS — SHARED BY BOTH CALCULATORS
+   ========================================================= */
+
+.action-button {
+  width: 110px;
+  height: 38px;
+  margin-top: 28px;
+  padding: 0;
+
+  border: 0;
+  border-radius: var(--radius);
+
+  background: var(--button);
+  color: #FFFFFF;
+
+  font-family:
+    "Avenir Next",
+    Avenir,
+    "Segoe UI",
+    sans-serif;
+
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background: #73475D;
+}
+
+.action-button:focus,
+.action-button:focus-visible,
+.action-button:active {
+  color: #FFFFFF;
+  outline: none;
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   ERROR MESSAGES — SHARED BY BOTH CALCULATORS
+   ========================================================= */
+
+.calculator-error {
+  min-height: 18px;
+  margin: 10px 0 20px;
+
+  color: var(--text);
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   RESULTS — SHARED BY BOTH CALCULATORS
+   ========================================================= */
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.result-row {
+  display: grid;
+  grid-template-columns: 190px 120px;
+  align-items: center;
+  gap: 14px;
+}
+
+.result-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.result-label {
+  color: var(--text-dark);
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.result-math {
+  color: var(--text);
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
+.result-value {
+  display: flex;
+  align-items: center;
+
+  width: 120px;
+  min-height: 38px;
+  padding: 0 11px;
+
+  background: var(--input);
+  color: var(--text-dark);
+  border-radius: var(--radius);
+
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   SETT GUIDE — FLIP CARDS
+   ========================================================= */
+
+.sett-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.sett-card {
+  position: relative;
+  display: block;
+
+  width: 100%;
+  min-height: 205px;
+  padding: 16px 14px 42px;
+
+  border: 0;
+  border-radius: var(--radius);
+
+  background: var(--background);
+  color: var(--text-dark);
+
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.sett-card:focus-visible {
+  outline: 2px solid var(--button);
+  outline-offset: 2px;
+}
+
+/* Card front and back */
+
+.sett-card .card-front,
+.sett-card .card-back {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sett-card .card-front {
+  align-items: flex-start;
+}
+
+.sett-card .card-back {
+  display: none;
+}
+
+.sett-card[aria-pressed="true"] .card-front {
+  display: none;
+}
+
+.sett-card[aria-pressed="true"] .card-back {
+  display: flex;
+}
+
+/* Card typography */
+
+.sett-card strong {
+  font-family:
+    "Avenir Next",
+    Avenir,
+    "Segoe UI",
+    sans-serif;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.sett-card small {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-light);
+  line-height: 1.4;
+}
+
+.sett-card .card-back > span {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Card illustrations */
+
+.card-illustration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 84px;
+
+  color: var(--button);
+  font-size: 3rem;
+  font-weight: 400;
+}
+
+/* Card toggle icon */
+
+.card-toggle {
+  position: absolute;
+  right: 14px;
+  bottom: 12px;
+
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--button);
+}
+
+
+/* =========================================================
+   REED COMPATIBILITY HELPER
+   ========================================================= */
+
+.reed-helper {
+  margin-top: 28px;
+  padding-top: 4px;
+}
+
+/* Shared section headings */
+
+.reed-helper h3,
+.sett-note h3 {
+  margin: 0 0 8px;
+  color: var(--text-dark);
+
+  font-family:
+    "Avenir Next",
+    Avenir,
+    "Segoe UI",
+    sans-serif;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Shared section descriptions */
+
+.reed-helper p:not(.calculator-error),
+.sett-note p {
+  margin: 0 0 10px;
+  color: var(--text);
+
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   FINAL WEAVING NOTE
+   ========================================================= */
+
+.sett-note {
+  margin-top: 30px;
+}
+
+
+/* =========================================================
+   RESPONSIVE LAYOUT
+   ========================================================= */
+
+/* Tablets and smaller screens */
+
+@media (max-width: 800px) {
+
+  .calculator {
+    width: min(100% - 40px, 600px);
+    padding-top: 35px;
+  }
+
+  .title {
+    font-size: 2.2rem;
+  }
+
+  .description {
+    font-size: 0.95rem;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-top: 35px;
+  }
+}
+
+/* Smaller screens */
+
+@media (max-width: 520px) {
+
+  .input-row,
+  .result-row {
+    grid-template-columns: minmax(0, 1fr) 120px;
+  }
+}
+
+/* Narrow mobile screens */
+
+@media (max-width: 420px) {
+
+  .sett-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .sett-card {
+    min-height: 165px;
+  }
+}

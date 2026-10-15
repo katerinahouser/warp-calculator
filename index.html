@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WARP CALCULATOR</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <main class="calculator">
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="header">
+      <h1 class="title">WARP CALCULATOR</h1>
+      <p class="description">
+        Calculate the warp requirements for your weaving project
+      </p>
+    </header>
+
+
+    <!-- =====================================================
+         MAIN LAYOUT
+         ===================================================== -->
+
+    <div class="layout">
+
+      <!-- ===================================================
+           LEFT PANEL: WARP CALCULATOR
+           =================================================== -->
+
+      <section class="calculator-panel">
+
+        <h2 class="section-title">CALCULATE</h2>
+
+        <!-- Inputs -->
+
+        <div class="input-group">
+
+          <div class="input-row">
+            <label for="width">
+              Width in reed <span class="unit">[inches]</span>
+            </label>
+            <input
+              id="width"
+              name="width"
+              type="number"
+              step="any"
+              inputmode="decimal"
+              min="0"
+            >
+          </div>
+
+          <div class="input-row">
+            <label for="sett">
+              Sett <span class="unit">[ends per inch]</span>
+            </label>
+            <input
+              id="sett"
+              name="sett"
+              type="number"
+              step="any"
+              inputmode="decimal"
+              min="0"
+            >
+          </div>
+
+          <div class="input-row">
+            <label for="warp-length">
+              Length of warp <span class="unit">[yards]</span>
+            </label>
+            <input
+              id="warp-length"
+              name="warp-length"
+              type="number"
+              step="any"
+              inputmode="decimal"
+              min="0"
+            >
+          </div>
+
+        </div>
+
+        <!-- Calculate button -->
+
+        <button
+          type="button"
+          class="action-button"
+          id="calculate-button"
+        >
+          calculate
+        </button>
+
+        <!-- Error message -->
+
+        <p
+          class="calculator-error"
+          id="calculator-error"
+          aria-live="polite"
+        ></p>
+
+        <!-- Results -->
+
+        <div class="results" aria-live="polite">
+
+          <div class="result-row">
+            <div class="result-info">
+              <span class="result-label">Total warp ends</span>
+              <span class="result-math" id="ends-math">
+                width × sett
+              </span>
+            </div>
+            <span class="result-value" id="total-ends">---</span>
+          </div>
+
+          <div class="result-row">
+            <div class="result-info">
+              <span class="result-label">Total warp yards</span>
+              <span class="result-math" id="yards-math">
+                total ends × warp length
+              </span>
+            </div>
+            <span class="result-value" id="total-yards">---</span>
+          </div>
+
+        </div>
+
+        <!-- Clear button -->
+
+        <button
+          type="button"
+          class="action-button"
+          id="clear-button"
+        >
+          clear
+        </button>
+
+      </section>
+
+
+      <!-- ===================================================
+           RIGHT PANEL: SETT GUIDE
+           =================================================== -->
+
+      <aside class="sett-panel">
+
+        <h2 class="section-title">HOW DO I FIND MY SETT?</h2>
+
+        <!-- Interactive reference cards -->
+
+        <div class="sett-cards">
+
+          <!-- Card 1: Measure your yarn -->
+
+          <button class="sett-card" type="button" aria-pressed="false">
+
+            <span class="card-front">
+              <span class="card-illustration" aria-hidden="true">▥</span>
+              <strong>Measure your yarn</strong>
+              <small>Wraps per inch</small>
+            </span>
+
+            <span class="card-back">
+              <strong>Measure your yarn</strong>
+              <span>
+                Wrap yarn around ½ inch of a ruler, keeping wraps
+                touching. Count the wraps to estimate a starting
+                sett for balanced plain weave.
+              </span>
+              <small>12 wraps in ½ inch ≈ 12 EPI</small>
+            </span>
+
+            <span class="card-toggle" aria-hidden="true">+</span>
+
+          </button>
+
+
+          <!-- Card 2: Weave structure -->
+
+          <button class="sett-card" type="button" aria-pressed="false">
+
+            <span class="card-front">
+              <span class="card-illustration" aria-hidden="true">▦</span>
+              <strong>Weave structure</strong>
+              <small>Plain weave or twill</small>
+            </span>
+
+            <span class="card-back">
+              <strong>Weave structure</strong>
+              <span>
+                Plain weave generally needs more space between
+                warp ends. Twill can often use a closer sett.
+              </span>
+            </span>
+
+            <span class="card-toggle" aria-hidden="true">+</span>
+
+          </button>
+
+
+          <!-- Card 3: Fabric density -->
+
+          <button class="sett-card" type="button" aria-pressed="false">
+
+            <span class="card-front">
+              <span class="card-illustration" aria-hidden="true">≋</span>
+              <strong>Fabric density</strong>
+              <small>Open or dense</small>
+            </span>
+
+            <span class="card-back">
+              <strong>Fabric density</strong>
+              <span>
+                Lower EPI gives more space between warp threads
+                and a more open fabric. Higher EPI makes a denser,
+                often firmer fabric.
+              </span>
+            </span>
+
+            <span class="card-toggle" aria-hidden="true">+</span>
+
+          </button>
+
+
+          <!-- Card 4: Check your reed -->
+
+          <button class="sett-card" type="button" aria-pressed="false">
+
+            <span class="card-front">
+              <span class="card-illustration" aria-hidden="true">Ⅲ</span>
+              <strong>Check your reed</strong>
+              <small>EPI and DPI</small>
+            </span>
+
+            <span class="card-back">
+              <strong>Check your reed</strong>
+              <span>
+                EPI is warp ends per inch; DPI is reed dents
+                per inch. Divide EPI by DPI to find the
+                average ends per dent.
+              </span>
+              <small>16 EPI ÷ 8 DPI = 2</small>
+            </span>
+
+            <span class="card-toggle" aria-hidden="true">+</span>
+
+          </button>
+
+        </div>
+
+
+        <!-- =================================================
+             REED COMPATIBILITY CALCULATOR
+             ================================================= -->
+
+        <section class="reed-helper">
+
+          <h3>Reed compatibility helper</h3>
+          <p>
+            Enter your desired sett and reed size to calculate average ends per dent.
+          </p>
+
+          <!-- Inputs -->
+
+          <div class="input-group">
+
+            <div class="input-row">
+              <label for="desired-sett">
+                Desired sett <span class="unit">[EPI]</span>
+              </label>
+              <input
+                id="desired-sett"
+                type="number"
+                step="any"
+                min="0"
+              >
+            </div>
+
+            <div class="input-row">
+              <label for="reed-size">
+                Reed size <span class="unit">[DPI]</span>
+              </label>
+              <input
+                id="reed-size"
+                type="number"
+                step="any"
+                min="0"
+              >
+            </div>
+
+          </div>
+
+          <!-- Calculate button -->
+
+          <button
+            type="button"
+            class="action-button"
+            id="reed-calculate-button"
+          >
+            calculate
+          </button>
+
+          <!-- Error message -->
+
+          <p
+            class="calculator-error"
+            id="reed-helper-error"
+            aria-live="polite"
+          ></p>
+
+          <!-- Results -->
+
+          <div class="results" aria-live="polite">
+
+            <div class="result-row">
+              <div class="result-info">
+                <span class="result-label">Your denting pattern</span>
+                <span class="result-math" id="reed-math">
+                  desired sett ÷ reed size
+                </span>
+              </div>
+              <span class="result-value" id="reed-result-text">---</span>
+            </div>
+
+          </div>
+
+          <!-- Clear button -->
+
+          <button
+            type="button"
+            class="action-button"
+            id="reed-clear-button"
+          >
+            clear
+          </button>
+
+        </section>
+
+
+        <!-- =================================================
+             FINAL WEAVING NOTE
+             ================================================= -->
+
+        <section class="sett-note">
+
+          <h3>Before you start weaving</h3>
+
+          <p>
+            Your sett is a starting point. Yarn, weave structure,
+            and finishing can all change the finished fabric.
+          </p>
+
+          <p>
+            Weave and wet-finish a sample before committing to your
+            full project.
+          </p>
+
+        </section>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
